@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Plus, Globe, Lock, Send } from "lucide-react";
 import postService from "../../appwrite/postService";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { allPost } from "../../store/postSlice";
 
 export default function CreatePostForm() {
   const currentUser = useSelector((state) => state.auth.currentUser);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -48,7 +50,6 @@ export default function CreatePostForm() {
 
     try {
       let imageId = null;
-      console.log(data.featuredImage);
       if (data.featuredImage) {
         const uploadedImage = await postService.uploadFeaturedImage(
           data.featuredImage
@@ -69,10 +70,13 @@ export default function CreatePostForm() {
       };
 
       await postService.createPost(postData);
-
       setStatusMessage("✅ Post created successfully!");
       reset();
       setSelectedImage(null);
+      const newPosts = await postService.getAllPosts();
+      if (newPosts) {
+        dispatch(allPost(newPosts.documents));
+      }
     } catch (error) {
       console.error("Error creating post:", error);
       setStatusMessage("❌ Oops! Something went wrong.");

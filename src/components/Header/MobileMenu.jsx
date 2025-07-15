@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
 export default function MobileMenu({ setIsMenuOpen }) {
   const navigate = useNavigate();
+  const menuRef = useRef();
 
   const links = [
     { label: "Home", path: "/" },
@@ -12,6 +13,18 @@ export default function MobileMenu({ setIsMenuOpen }) {
     { label: "About", path: "/about" },
   ];
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   return (
     <motion.div
       className="md:hidden border-t bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700"
@@ -19,6 +32,7 @@ export default function MobileMenu({ setIsMenuOpen }) {
       animate={{ height: "auto", opacity: 1 }}
       exit={{ height: 0, opacity: 0 }}
       transition={{ duration: 0.3 }}
+      ref={menuRef}
     >
       <nav className="p-4 space-y-2">
         {links.map(({ label, path }) => (
