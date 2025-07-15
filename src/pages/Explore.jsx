@@ -15,6 +15,9 @@ export default function Explore() {
   const dispatch = useDispatch();
   const [activeTab, setActiveTab] = useState("All");
   const [openMenuId, setOpenMenuId] = useState(null);
+  const allConnections = useSelector(
+    (state) => state.connection.allConnections
+  );
 
   useEffect(() => {
     async function fetchConnectionsOfUser() {
@@ -35,9 +38,21 @@ export default function Explore() {
     }
   }, [dispatch, currentUserId]);
 
+  // It would give a time complexity of O(n*m) which would be huge for larger apps
+  // const filteredPosts =
+  //   activeTab === "Following"
+  //     ? fetchedPosts.filter((post) =>
+  //         allConnections.some((c) => c.following === post.userId)
+  //       )
+  //     : fetchedPosts;
+
+  // new approach with time complexity of O(n+m)
+
+  const followingIds = new Set(allConnections.map((c) => c.following));
+
   const filteredPosts =
     activeTab === "Following"
-      ? fetchedPosts.filter((post) => post.isFollowing) // Replace with real logic later
+      ? fetchedPosts.filter((post) => followingIds.has(post.userId))
       : fetchedPosts;
 
   return (
