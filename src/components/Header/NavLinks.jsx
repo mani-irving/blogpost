@@ -8,7 +8,7 @@ export default function NavLinks() {
   const links = [
     { label: "Home", path: "/" },
     { label: "Explore", path: "/explore" },
-    { label: "Categories", path: "/category" },
+    // { label: "Categories", path: "/category" },
     { label: "About", path: "/about" },
   ];
 

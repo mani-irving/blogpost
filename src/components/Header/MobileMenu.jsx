@@ -9,7 +9,7 @@ export default function MobileMenu({ setIsMenuOpen }) {
   const links = [
     { label: "Home", path: "/" },
     { label: "Explore", path: "/explore" },
-    { label: "Categories", path: "/category" },
+    // { label: "Categories", path: "/category" },
     { label: "About", path: "/about" },
   ];
 

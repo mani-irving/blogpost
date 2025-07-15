@@ -48,10 +48,10 @@ export default function Header() {
           <Logo />
           <NavLinks />
           <div className="flex items-center space-x-4">
-            <SearchBar
+            {/* <SearchBar
               searchQuery={searchQuery}
               setSearchQuery={setSearchQuery}
-            />
+            /> */}
             <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
             <AuthButtons isLoggedIn={isLoggedIn} currentUser={currentUser} />
             <MenuToggle isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
