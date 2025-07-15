@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { useNavigate, Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useNavigate, Link, Navigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import Input from "../UI/Input";
 import Button from "../UI/Button";
@@ -13,6 +13,7 @@ export default function Register() {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  // const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   const createAccount = async (data) => {
     try {
@@ -22,8 +23,6 @@ export default function Register() {
         const userData = await authService.getCurrentUser();
         if (userData) {
           dispatch(login(userData));
-          localStorage.setItem("isLoggedInLocally", JSON.stringify(true));
-          localStorage.setItem("currentUserLocally", JSON.stringify(userData));
         }
         navigate("/");
       }
@@ -32,6 +31,7 @@ export default function Register() {
     }
   };
 
+  // if (isLoggedIn) return <Navigate to="/explore" replace />;
   return (
     <div
       className="min-h-screen flex items-center 

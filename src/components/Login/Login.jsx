@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Input from "../UI/Input";
 import Button from "../UI/Button";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login as authLogin } from "../../store/authSlice";
 import authService from "../../appwrite/authService";
 
@@ -13,6 +13,7 @@ export default function Login() {
   const [error, setError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  // const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   const login = async (data) => {
     setError("");
@@ -22,8 +23,6 @@ export default function Login() {
         const userData = await authService.getCurrentUser();
         if (userData) {
           dispatch(authLogin(userData));
-          localStorage.setItem("isLoggedInLocally", JSON.stringify(true));
-          localStorage.setItem("currentUserLocally", JSON.stringify(userData));
         }
         navigate("/");
       }
@@ -31,6 +30,8 @@ export default function Login() {
       setError(error.message);
     }
   };
+
+  // if (isLoggedIn) return <Navigate to="/explore" replace />;
   return (
     <div
       className="min-h-screen flex items-center justify-center px-4

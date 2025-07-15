@@ -11,6 +11,7 @@ import { login } from "./store/authSlice";
 import { allPost } from "./store/postSlice";
 import postService from "./appwrite/postService";
 import authService from "./appwrite/authService";
+import PrivateRoutes from "./privateRoute/PrivateRoute";
 
 function App() {
   const dispatch = useDispatch();
@@ -51,8 +52,22 @@ function App() {
         <Route index element={<Home />} />
         <Route path="explore" element={<Explore />} />
         <Route path="about" element={<About />} />
-        <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
+        <Route
+          path="login"
+          element={
+            <PrivateRoutes>
+              <Login />
+            </PrivateRoutes>
+          }
+        />
+        <Route
+          path="register"
+          element={
+            <PrivateRoutes>
+              <Register />
+            </PrivateRoutes>
+          }
+        />
       </Route>
     </Routes>
   );
