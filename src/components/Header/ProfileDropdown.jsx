@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { LogOut } from "lucide-react";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../store/authSlice";
+import { resetConnections } from "../../store/connectionsSlice";
 import authService from "../../appwrite/authService";
 import { useNavigate } from "react-router-dom";
 
@@ -16,6 +17,7 @@ export default function ProfileDropdown() {
       const success = await authService.logout();
       if (success) {
         dispatch(logout());
+        dispatch(resetConnections());
       }
       navigate("/");
     } catch (error) {

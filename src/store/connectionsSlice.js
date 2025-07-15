@@ -22,9 +22,16 @@ const connectionsSlice = createSlice({
     setAllConnections: (state, action) => {
       state.allConnections = action.payload;
     },
+    resetConnections: (state) => {
+      state.allConnections = [];
+    },
   },
 });
 
-export const { addConnection, removeConnection, setAllConnections } =
-  connectionsSlice.actions;
+export const {
+  addConnection,
+  removeConnection,
+  setAllConnections,
+  resetConnections,
+} = connectionsSlice.actions;
 export default connectionsSlice.reducer;
