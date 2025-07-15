@@ -10,19 +10,25 @@ import { useDispatch } from "react-redux";
 import { login } from "./store/authSlice";
 import { allPost } from "./store/postSlice";
 import postService from "./appwrite/postService";
+import authService from "./appwrite/authService";
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const isLoggedInLocally = localStorage.getItem("isLoggedInLocally");
-    const currentUserLocally = JSON.parse(
-      localStorage.getItem("currentUserLocally")
-    );
-    if (isLoggedInLocally === "true") {
-      dispatch(login(currentUserLocally));
-    }
-  }, [dispatch]);
+    const authChecker = async () => {
+      try {
+        const currentUser = await authService.getCurrentUser();
+        if (currentUser) {
+          dispatch(login(currentUser));
+        }
+      } catch (error) {
+        console.log("Error checking auth:", error.message);
+      }
+    };
+
+    authChecker();
+  }, []);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -30,10 +36,6 @@ function App() {
         const allFetchedPosts = await postService.getAllPosts();
         if (allFetchedPosts) {
           dispatch(allPost(allFetchedPosts.documents));
-          localStorage.setItem(
-            "posts",
-            JSON.stringify(allFetchedPosts.documents)
-          );
         }
       } catch (error) {
         console.log("Error fetching posts:", error.message);
@@ -41,7 +43,7 @@ function App() {
     };
 
     fetchPosts();
-  }, [dispatch]);
+  }, []);
 
   return (
     <Routes>

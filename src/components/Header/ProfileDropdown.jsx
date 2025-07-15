@@ -7,7 +7,7 @@ import authService from "../../appwrite/authService";
 import { useNavigate } from "react-router-dom";
 
 export default function ProfileDropdown() {
-  const { currentUser } = useSelector((state) => state.auth);
+  const currentUser = useSelector((state) => state.auth.currentUser);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -15,8 +15,6 @@ export default function ProfileDropdown() {
     try {
       const success = await authService.logout();
       if (success) {
-        localStorage.setItem("isLoggedInLocally", JSON.stringify(false));
-        localStorage.setItem("currentUserLocally", JSON.stringify(null));
         dispatch(logout());
       }
       navigate("/");

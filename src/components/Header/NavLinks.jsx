@@ -21,7 +21,6 @@ export default function NavLinks() {
           whileHover={{ y: -2 }}
           whileTap={{ y: 0 }}
           onClick={() => {
-            console.log("Navigating to:", path); // ✅ debug click
             navigate(path);
           }}
         >
