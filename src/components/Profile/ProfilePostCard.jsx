@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux"; // would see
 import { formatDistanceToNow } from "date-fns";
 import { useNavigate } from "react-router-dom";
 import { Heart, MoreHorizontal, CircleUserRound } from "lucide-react";
@@ -7,7 +7,7 @@ import postService from "../../appwrite/postService";
 import { removePost } from "../../store/postSlice";
 import { addConnection, removeConnection } from "../../store/connectionsSlice";
 
-export default function PostCard({
+export default function ProfilePostCard({
   $id,
   title,
   content,
@@ -17,12 +17,11 @@ export default function PostCard({
   updatedAt,
   openMenuId,
   setOpenMenuId,
+  isLoggedIn,
+  currentUserId,
 }) {
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const currentUser = useSelector((state) => state.auth.currentUser);
-  const currentUserId = currentUser?.$id;
   const [liked, setLiked] = useState(false);
-  const [likeCount, setLikeCount] = useState(24);
+  const [likeCount, setLikeCount] = useState(2);
   const [error, setError] = useState("");
   const isMenuOpen = openMenuId === $id;
   const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
@@ -116,7 +115,6 @@ export default function PostCard({
             <div className="flex flex-col">
               <button
                 onClick={() => navigate(`/user/${userId}`)}
-                // further add:
                 className="text-sm font-bold text-left text-blue-600 hover:underline"
               >
                 {userName}

@@ -12,6 +12,7 @@ import { allPost } from "./store/postSlice";
 import postService from "./appwrite/postService";
 import authService from "./appwrite/authService";
 import PrivateRoutes from "./privateRoute/PrivateRoute";
+import Profile from "./pages/Profile";
 
 function App() {
   const dispatch = useDispatch();
@@ -68,6 +69,7 @@ function App() {
             </PrivateRoutes>
           }
         />
+        <Route path="user/:id" element={<Profile />} />
       </Route>
     </Routes>
   );
