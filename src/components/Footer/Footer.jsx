@@ -28,7 +28,7 @@ export default function Footer() {
           <div className="md:col-span-2">
             <div className="border-t  mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center border-gray-200 dark:border-gray-700">
               <p className="text-sm text-gray-600 dark:text-gray-400">
-                © 2025 BlogPost. All rights reserved.
+                © 2025 BlogPost. All rights reserved. Manikant.
               </p>
               <div className="flex space-x-4 mt-4 sm:mt-0">
                 {["Twitter", "LinkedIn", "GitHub"].map((platform) => (
