@@ -115,7 +115,8 @@ export default function PostCard({
             </div>
             <div className="flex flex-col">
               <button
-                onClick={() => navigate(`/profile/${userId}`)}
+                onClick={() => navigate("/explore")}
+                // further add: `/profile/${userId}`
                 className="text-sm font-bold text-left text-blue-600 hover:underline"
               >
                 {userName}

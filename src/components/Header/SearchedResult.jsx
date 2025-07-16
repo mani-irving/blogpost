@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export default function SearchedResult({ $id, title, content }) {
   return (
     <Link
-      to={`/post/${$id}`} // Optional: change path according to your route
+      to="/explore" // Optional: change path according to your route `/post/${$id}`
       className="block px-4 py-3 border-b border-gray-200 dark:border-gray-700 
       hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
     >
