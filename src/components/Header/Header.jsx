@@ -16,7 +16,6 @@ export default function Header() {
   const currentUser = useSelector((state) => state.auth.currentUser);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
 
   const [darkMode, setDarkMode] = useState(() =>
     localStorage.getItem("theme") === "dark" ? true : false
@@ -35,6 +34,22 @@ export default function Header() {
     }
   }, [darkMode]);
 
+  const fetchedPosts = useSelector((state) => state.post.allPosts);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchedPosts, setSearchedPosts] = useState([]);
+
+  useEffect(() => {
+    if (!searchQuery.trim()) {
+      setSearchedPosts([]);
+      return;
+    }
+
+    const searchResult = fetchedPosts.filter((post) =>
+      post.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setSearchedPosts(searchResult);
+  }, [searchQuery, fetchedPosts]);
+
   return (
     <motion.header
       className="sticky top-0 z-50 backdrop-blur-md border-b transition-all duration-300 bg-white/95
@@ -48,10 +63,14 @@ export default function Header() {
           <Logo />
           <NavLinks />
           <div className="flex items-center space-x-4">
-            {/* <SearchBar
+            <SearchBar
               searchQuery={searchQuery}
               setSearchQuery={setSearchQuery}
-            /> */}
+              searchedPosts={searchedPosts}
+              setSearchedPosts={setSearchedPosts}
+              fetchedPosts={fetchedPosts}
+            />
+
             <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
             <AuthButtons isLoggedIn={isLoggedIn} currentUser={currentUser} />
             <MenuToggle isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
