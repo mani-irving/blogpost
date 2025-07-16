@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom"; // Optional: use only if posts have detail pages
+import { Link } from "react-router-dom";
 
 export default function SearchedResult({ $id, title, content }) {
   return (
