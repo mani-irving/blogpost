@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { LogOut } from "lucide-react";
+import { LogOut, BookUser } from "lucide-react";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../store/authSlice";
 import { resetConnections } from "../../store/connectionsSlice";
@@ -43,6 +43,19 @@ export default function ProfileDropdown() {
         </p>
       </div>
       <div className="border-t dark:border-gray-700" />
+
+      <button
+        onClick={() => navigate(`/user/${currentUser.$id}`)}
+        className="w-full text-left px-4 py-3 text-sm font-medium text-blue-500 hover:bg-blue-200 dark:hover:bg-blue-500/10 transition-colors"
+      >
+        <div className="flex items-center gap-2">
+          <BookUser className="w-4 h-4" />
+          <div className="flex items-center gap-2">Profile</div>
+        </div>
+      </button>
+
+      <div className="border-t dark:border-gray-700" />
+
       <button
         onClick={logoutUser}
         className="w-full text-left px-4 py-3 text-sm font-medium text-red-500 hover:bg-red-100 dark:hover:bg-red-500/10 transition-colors"

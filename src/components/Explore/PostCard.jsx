@@ -185,11 +185,11 @@ export default function PostCard({
             {content}
           </p>
           {imagePreviewUrl && (
-            <div className="rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700">
+            <div className="rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 flex justify-center items-center bg-black">
               <img
                 src={imagePreviewUrl}
                 alt="Post visual"
-                className="w-full object-cover"
+                className="w-full max-h-[400px] sm:max-h-[300px] object-contain"
               />
             </div>
           )}

@@ -1,7 +1,11 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 
-export default function ProfileTop({ userIdFetchedFromParams }) {
+export default function ProfileTop({
+  userIdFetchedFromParams,
+  followersCount,
+  followingsCount,
+}) {
   const allPosts = useSelector((state) => state.post.allPosts);
   const fetchingUserFromAllPosts = allPosts.filter(
     (post) => post.userId === userIdFetchedFromParams
@@ -46,13 +50,13 @@ export default function ProfileTop({ userIdFetchedFromParams }) {
           <span className="text-blue-700 dark:text-blue-400 font-medium">
             Followers:
           </span>
-          <h3 className="font-semibold">34</h3>
+          <h3 className="font-semibold">{followersCount}</h3>
         </div>
         <div className="flex items-center gap-2">
           <span className="text-blue-700 dark:text-blue-400 font-medium">
             Following:
           </span>
-          <h3 className="font-semibold">66</h3>
+          <h3 className="font-semibold">{followingsCount}</h3>
         </div>
       </div>
 
